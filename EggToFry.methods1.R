@@ -29,10 +29,10 @@ myDIR <- "MYDIR1234"  # edit this value
 #==== 
 # 3. Become familiar with querystring methods:
 # - Can use the GUI and select "generate query strings" to see samples of queries
-# - Can paste the result of this print statement into browser (without quotation marks!):
+# - Can paste the result of this statement into browser (without quotation marks!):
 print(paste0(base,"&generatequery=1")) 
 
-# the two methods aboveabove will display all of the "raw" codes used to obtain results directly from your model run
+# the two methods above will display all of the "raw" codes used to obtain results directly from your model run
 # this example will continue with "raw=13" which collects several key results
 
 #==== 
@@ -43,12 +43,13 @@ print(paste0(base,"&generatequery=1"))
 # NOTE: &generatequery=1 is removed in order to obtain results directly
 # example query. Paste print() results into a browser
 
-# create a new base1 (
+# create a new base1 
 base1 <- paste0(base,"&tempsource=dbtemp&raw=13")
 print(paste0(base1,"&reddyear=2022&tempyear=2022&redds=dbcarcass")) 
 
 # make print line more compact:
 string1 <- paste0(base1,"&reddyear=2022&tempyear=2022&redds=dbcarcass")
+
 print(string1)
 
 #===
@@ -56,7 +57,7 @@ print(string1)
 # MOST results are multi-line, .csv text 
 result <- read_csv(string1)
 print(result)
-#NOTE: Results with single value (raw=1, grand survival): captured with scan: 
+#NOTE: Results with single value (raw=1, grand survival): captured with scan. E.g. 
 print(scan(paste0(base,"&reddyear=2022&tempsource=dbtemp&tempyear=2022&redds=dbcarcass&raw=1")))
 
 #==== 
