@@ -8,7 +8,7 @@ library(tidyverse)
 tmplocation="myDirName"          #  <YOUR CHOICE::  CHANGE THIS of a unique directory name to separate your results from others>
 
 
-whatyear=2018
+whatyear=2019
 usemortality="hatchmort"  # "emergemort"
 usedewater="onkwk"        # "off"
 spawning="dbaerial"      # "dbredds"
