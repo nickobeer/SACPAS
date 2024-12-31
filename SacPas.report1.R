@@ -5,7 +5,7 @@
 
 library(tidyverse)
 
-tmplocation="myDirName"          #  <YOUR CHOICE::  CHANGE THIS of a unique directory name to separate your results from others>
+tmplocation="myDir0101"          #  <YOUR CHOICE::  CHANGE THIS of a unique directory name to separate your results from others>
 
 
 whatyear=2019
@@ -44,8 +44,11 @@ denssurv <- read_csv(paste0(stringplot,"/densityonlysurv.csv"),show_col_types = 
 denssurv.W.bg <- read_csv(paste0(stringplot,"/densitysurv.csv"),show_col_types = FALSE)
 
 tallyS <- tallyN <- 0
+output.table <- cbind.data.frame("reach"=character(0),"Count"=numeric(0),"TotS"=numeric(0),"TDMS"=numeric(0),"DensS"=numeric(0),"D&BS"=numeric(0),"DWS"=numeric(0))
 for(reach in colnames(survs)[-1]){
-   if(reach==colnames(survs)[2]) cat("reach ","Count"," TotS"," TDMS","DensS"," D&BS","  DWS","\n")
+   if(reach==colnames(survs)[2]){
+      cat("reach ","Count"," TotS"," TDMS","DensS"," D&BS","  DWS","\n")
+   }
     x <- sum(survs[reach]*redds[reach])/sum(redds[reach])
     y <- sum(tdmsurv[reach]*redds[reach])/sum(redds[reach])
     z <- sum(denssurv.W.bg[reach]*redds[reach])/sum(redds[reach])
@@ -59,10 +62,13 @@ for(reach in colnames(survs)[-1]){
         format(round(z,3),width=5),
         format(round( x / y / z ,3),width=5),
     "\n")
+    output.table <- rbind.data.frame(output.table,cbind.data.frame("reach"=reach,"Count"=sum(redds[reach]), "TotS"=round(x,3), "TDMS"=round(y,3), "DensS"=round(sum(denssurv[reach]*redds[reach])/sum(redds[reach]),3), "D&BS"=round(z,3),"DWS"=x / y / z ))
     if(reach==colnames(survs)[ncol(survs)]){
       cat("\nGrand TDM: ",1- round(tallyS/tallyN,3)," Survival: ",round(tallyS/tallyN,3),"\n")
     }
 }
+write_csv(output.table,"output.table.csv")
+write_csv(cbind.data.frame("What"=c("Grand TDM","Survival"),"Value"=c( 1- round(tallyS/tallyN,3) , round(tallyS/tallyN,3))),"output.summary.csv")
 
-  
+
   
