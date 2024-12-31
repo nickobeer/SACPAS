@@ -11,13 +11,13 @@ tmplocation="myDir0101"          #  <YOUR CHOICE::  CHANGE THIS of a unique dire
 whatyear=2019
 usemortality="hatchmort"  # "emergemort"
 usedewater="onkwk"        # "off"
-spawning="dbaerial"      # "dbredds"
+spawning="dbcarcass"      # "dbcarcass"  ; "dbredds"
 
 #==== Everything below this line generates results fr the setting above ====
 #= Settings are values for:  usemortality  usedewater spawning  whatyear
 
 string <- paste0("https://www.cbr.washington.edu/sac-bin/fishmodel/getandplottemp.pl?dirUseId=",tmplocation,"&temponly=off&tempsource=dbtemp&mortality=",usemortality)
-string1 <- paste0(string,"&reddyear=",whatyear,"&tempyear=",whatyear,"&dewater=",usedewater,"&redds=dbredds")
+string1 <- paste0(string,"&reddyear=",whatyear,"&tempyear=",whatyear,"&dewater=",usedewater,"&redds=",spawning)
 string2 <- paste0(string1,"&raw=13")
 result <- read_csv(string2,show_col_types = FALSE)
 print(result)
